@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "create-next-app": "^16.1.2",
+    "pnpm": "^10.28.0"
+  }
+}
