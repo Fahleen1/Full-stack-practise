@@ -1,4 +1,5 @@
 'use client'
+import useFetch from "@/hooks/customHook";
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react"
 
 const themeContext = createContext<{ theme: 'light' | 'dark'; toggleTheme: () => void } | null>(null)
@@ -17,6 +18,10 @@ function allHooks() {
   //useState
   const [count, setCount] = useState(0)
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
+
+  // Calling custom hook
+  const { data } = useFetch('https://official-joke-api.appspot.com/random_joke')
+  const dataString = JSON.stringify(data)
 
   //useRef
   const countRef = useRef(false)
@@ -47,17 +52,17 @@ function allHooks() {
   // useEffect(()=>{
   //   console.log("This will print on each render")
   // })
-  useEffect(() => {
-    if (!countRef.current) {
-      countRef.current = true
-      return
-    }
-    console.log("This will print when count changes")
-  }, [count])
+  // useEffect(() => {
+  //   if (!countRef.current) {
+  //     countRef.current = true
+  //     return
+  //   }
+  //   console.log("This will print when count changes")
+  // }, [count])
 
-  useEffect(() => {
-    console.log("This will print one time")
-  }, [])
+  // useEffect(() => {
+  //   console.log("This will print one time")
+  // }, [])
 
   return (
     <themeContext.Provider value={{ theme, toggleTheme }}>
@@ -81,6 +86,9 @@ function allHooks() {
         >
           Change theme
         </button>
+        <div>
+          {dataString}
+        </div>
       </div>
     </themeContext.Provider>
   )
